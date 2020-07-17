@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cos.blog.repository.AccountRepository">
+<!-- id는 함수명과 똑같이 해야한다. -->
+	<select id="findAll" resultType="com.cos.blog.model.Account">
+		SELECT * FROM account
+	</select>
+	<select id="findByAccountNumber" resultType="com.cos.blog.model.Account">
+		SELECT * FROM account WHERE accountNumber = #{accountNumber}
+	</select>
+	
+	<update id="update">
+		<!-- 여기도 구조 분할 할당 -->
+		<!-- 데이터 바인딩할때 #을 붙여야한다. -->
+		<!-- 바인딩할 데이터는 Repository에서 넘겨줄때 객체면 객체안에것도 가능 -->
+		UPDATE account SET money = #{money} WHERE accountNumber = #{accountNumber}
+	</update>
+</mapper>
