@@ -3,26 +3,26 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-	<form action="#" method="POST" class="was-validated">
+	<form class="was-validated">
 
 		<div class="form-group">
 			<label for="username">Username:</label>
-			<button type="button" class="btn btn-warning float-right" onclick="usernameCheck()">중복확인</button>
-			<input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
+			<button id="btn-username-check" type="button" class="btn btn-warning float-right" onclick="usernameCheck()">중복확인</button>
+			<input id="username" type="text" class="form-control" placeholder="Enter username" required>
 			<div class="valid-feedback">Valid.</div>
 			<div class="invalid-feedback">Please fill out this field.</div>
 		</div>
 
 		<div class="form-group">
-			<label for="pwd">Password:</label> <input type="password" class="form-control" id="password"
-				placeholder="Enter password" name="password" required>
+			<label for="pwd">Password:</label> 
+			<input id="password" type="password" class="form-control" placeholder="Enter password" required>
 			<div class="valid-feedback">Valid.</div>
 			<div class="invalid-feedback">Please fill out this field.</div>
 		</div>
 
 		<div class="form-group">
-			<label for="email">Email:</label> <input type="email" class="form-control" id="email" placeholder="Enter Email"
-				name="email" required>
+			<label for="email">Email:</label> <input id="email" type="email" class="form-control" placeholder="Enter Email"
+				required>
 			<div class="valid-feedback">Valid.</div>
 			<div class="invalid-feedback">Please fill out this field.</div>
 		</div>

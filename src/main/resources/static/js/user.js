@@ -1,22 +1,39 @@
 let index = {
+	//변수는 let 쓰고 ,함수의 이름이 없어도 실행될수밖에 없는 영역에 ()=> 씀
 	init : function(){
-		let _this = this;
-		
-		//여기 this는 index를 가르킴
-		console.log(this);
 		//이벤트를 바인딩
-		$("#btn-save").on("click",function(){
-			alert('btn-save 클릭됨');
-			
-			//여기서 save는 this.save()로 생략되어있는데
-			//여기 this가 button을 가르키고 있어서 save를 못 찾음
-			console.log(this);
-			_this.save();
+		$("#btn-save").on("click",()=>{
+			this.save();
 		});
 	},
-	//이렇게 설계하면 장점 : 
+	
+	//이렇게 설계하면 장점 : 버튼 리스너를 새로 만들고 밑에서 처리하면됨
 	save : function() {
-		alert("btn-save 로직 실행");
+		let data = {
+				username:$("#username").val(),
+				password:$("#password").val(),
+				email:$("#email").val()
+		};
+		//fetch쓰면 jquery안써도 됨
+		$.ajax({
+			type :"POST",
+			url: "/auth/joinProc",
+			//자바스크립트 오브젝트를 JSON String으로 바꾼것
+			data : JSON.stringify(data),
+			//스프링이 메세지 컨버터가 작동해서 requestBody를 붙여야함
+			//그러기 위해서는 스프링에게 컨텍스트 타입을 알려줘야한다. 그래야만 오브젝트로 변환해줌
+			contentType : "application/json; charset=utf-8",
+			//응답 받는 타입 설정
+			dataType : "text"
+		}).done((resp)=>{
+			console.log(JSON.parse(resp));
+		}).fail(function(error){
+			console.log(error);
+		})
+		//자바스크립트오브젝트 => 제이슨 스트링
+		//JSON.stringify(자바스크립트오브젝트);
+		//제이슨 스트링 => 자바스크립트 오브젝트
+		//JSON.parse(제이슨스트링);
 	}
 }
 
