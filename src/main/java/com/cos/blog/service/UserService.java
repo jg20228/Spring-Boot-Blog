@@ -43,16 +43,11 @@ public class UserService {
 		}
 	}
 	
+	
+	//readOnly = true가 필요한 이유
 	@Transactional(readOnly = true)
 	public User 로그인(User user) {
 		User persistUser = userRepository.login(user);
-		
-		if(
-			user.getId()==persistUser.getId()&&
-			user.getPassword()==persistUser.getPassword()
-		) {
-			return persistUser;
-		}
-			return null;
+		return persistUser;
 	}
 }

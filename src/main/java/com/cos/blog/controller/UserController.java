@@ -1,5 +1,7 @@
 package com.cos.blog.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +36,16 @@ public class UserController {
 	}
 	
 	@PostMapping("/auth/loginProc")
-	public @ResponseBody CommonRespDto<?> loginProc(@RequestBody User user){
+	public @ResponseBody CommonRespDto<?> loginProc(@RequestBody User user, HttpSession session){
 		User persistUser = userService.로그인(user);
 		
-		if(persistUser ==null) {
-			return new CommonRespDto<String>(1, "로그인 결과 성공");
-		}else {
+		if(persistUser.getId() == 0) {
 			return new CommonRespDto<String>(-1, "로그인 결과 실패");
+		}else {
+			//세션 등록
+			//request를 통해서 session에 접근할수있는 통로를 가지고 있는것이다.
+			session.setAttribute("principal", persistUser);
+			return new CommonRespDto<String>(1, "로그인 결과 성공");
 		}
 	}
 }
