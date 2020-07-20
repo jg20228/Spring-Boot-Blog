@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +40,8 @@ public class UserController {
 	public @ResponseBody CommonRespDto<?> loginProc(@RequestBody User user, HttpSession session){
 		User persistUser = userService.로그인(user);
 		
-		if(persistUser.getId() == 0) {
+		if(ObjectUtils.isEmpty(persistUser)) {
+			//못찾으면 null이 아니라 빈객체를 return 해주기 때문이다.
 			return new CommonRespDto<String>(-1, "로그인 결과 실패");
 		}else {
 			//세션 등록

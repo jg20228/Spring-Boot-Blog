@@ -65,9 +65,13 @@ let index = {
 			// 응답 받는 타입 설정
 			dataType : "json"
 		}).done((resp)=>{
-			alert("로그인 성공");
-			location.href="/";
-			console.log(resp);
+			if(resp.statusCode ==1){
+				alert("로그인 성공");
+				location.href="/";
+			}else{
+				alert("로그인 실패");
+				console.log(resp);
+			}
 		}).fail(function(error){
 			alert("로그인 실패");
 			console.log(error);
