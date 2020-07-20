@@ -29,8 +29,30 @@ public class UserService {
 	private UserRepository userRepository; // DI
 	
 	@Transactional
-	public void 회원가입(User user) {
-		userRepository.save(user);
+	public int 회원가입(User user) {
+		//원래는 Exception Handler를 사용해야한다.
+		//try catch를 잡아두면 fail이 아니라 done으로 간다.
+		//try catch 안하고 fail 발생시켜도 상관은 없지만 지금은 done으로 가는 방식을 사용.
+		//이것을 간단하게 처리할수있는 어노테이션이 있다.->>???
+		try {
+			userRepository.save(user);
+			return 1;
+		} catch (Exception e) {
+			e.getMessage();
+			return -1;
+		}
 	}
-
+	
+	@Transactional(readOnly = true)
+	public User 로그인(User user) {
+		User persistUser = userRepository.login(user);
+		
+		if(
+			user.getId()==persistUser.getId()&&
+			user.getPassword()==persistUser.getPassword()
+		) {
+			return persistUser;
+		}
+			return null;
+	}
 }

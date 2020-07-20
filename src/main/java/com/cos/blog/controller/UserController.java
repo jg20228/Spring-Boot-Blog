@@ -26,10 +26,21 @@ public class UserController {
 	@PostMapping("/auth/joinProc")
 	public @ResponseBody CommonRespDto<?> joinProc(@RequestBody User user) {
 		//?는 아직 정해지지 않음, 많이 씀
-		userService.회원가입(user);
+		int result = userService.회원가입(user);
 		//ok가 아니라 응답 CommonRespDto 엔티티를 만들것이다.
 		//사실 스프링에 만들어져 있지만 이해를 돕기위해서 만들었음
 		//스프링에 들고 있는건 ResponseEntity<?>,return ResponseEntity<String>("1",HttpStatus.OK); OK를 컨트롤+클릭 
-		return new CommonRespDto<String>(1, "회원가입완료"); //분기를 타서 1을 넣어야하는거 아닌가
+		return new CommonRespDto<String>(result, "회원가입 결과 : "+result); //분기를 타서 1을 넣어야하는거 아닌가
+	}
+	
+	@PostMapping("/auth/loginProc")
+	public @ResponseBody CommonRespDto<?> loginProc(@RequestBody User user){
+		User persistUser = userService.로그인(user);
+		
+		if(persistUser ==null) {
+			return new CommonRespDto<String>(1, "로그인 결과 성공");
+		}else {
+			return new CommonRespDto<String>(-1, "로그인 결과 실패");
+		}
 	}
 }
