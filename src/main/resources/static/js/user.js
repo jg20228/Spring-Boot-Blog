@@ -24,9 +24,13 @@ let index = {
 			//그러기 위해서는 스프링에게 컨텍스트 타입을 알려줘야한다. 그래야만 오브젝트로 변환해줌
 			contentType : "application/json; charset=utf-8",
 			//응답 받는 타입 설정
-			dataType : "text"
+			dataType : "json"
 		}).done((resp)=>{
-			console.log(JSON.parse(resp));
+			if(resp.statusCode == 1){
+				alert("회원가입 성공");
+				location.href="/";
+			}
+			console.log(resp);
 		}).fail(function(error){
 			console.log(error);
 		})
