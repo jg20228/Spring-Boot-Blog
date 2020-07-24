@@ -30,7 +30,7 @@ public class SessionIntercepter extends HandlerInterceptorAdapter{
 			out.print("alert('로그인이 필요합니다.');");
 			out.print("location.href='/auth/loginForm';");
 			out.print("</script>");
-			return false;
+			return false; //더이상 진입 안됨 바로 response 됨.
 		}
 		//잘되어 있으면 true!
 		return true;
