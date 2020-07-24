@@ -5,6 +5,7 @@
 <div class="container">
 	<form class="was-validated">
 
+		<input id="userId" type="hidden" value="${sessionScope.principal.id}"/>
 		<div class="form-group">
 			<label for="title">Title:</label> <input id="title" type="text" class="form-control"
 				placeholder="Enter username" required>
