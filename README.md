@@ -43,6 +43,7 @@ CREATE TABLE user(
     password varchar(100) not null,
     email varchar(100),
     profile varchar(200),
+    role varchar(20),
     createDate timestamp
 ) engine=InnoDB default charset=utf8;
 ```
