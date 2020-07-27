@@ -35,4 +35,10 @@
 		WHERE id = #{id} 
 	</update>
 	
+	<select id="findOne" resultType="com.cos.blog.model.Post">
+		SELECT id, title, content, userId, createDate 
+		FROM post 
+		WHERE id = #{id}
+	</select>
+	
 </mapper>

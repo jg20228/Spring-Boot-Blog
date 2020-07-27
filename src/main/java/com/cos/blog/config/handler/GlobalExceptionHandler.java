@@ -25,4 +25,6 @@ public class GlobalExceptionHandler {
 		//권한 없음
 		return "<h1>권한 없어요 나가세요</h1>";
 	}
+	
+	
 }
