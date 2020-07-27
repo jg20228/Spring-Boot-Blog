@@ -1,5 +1,7 @@
 package com.cos.blog.repository;
 
+import java.util.List;
+
 import com.cos.blog.model.Post;
 
 
@@ -7,5 +9,5 @@ import com.cos.blog.model.Post;
 public interface PostRepository {
 	//퍼시스턴스를 만들어줌
 	public void save(Post post);
-	//내부적으로 구현되어있다.
+	public List<Post> findAll();
 }
