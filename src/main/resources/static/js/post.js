@@ -2,11 +2,14 @@ let index = {
 	// 변수는 let 쓰고 ,함수의 이름이 없어도 실행될수밖에 없는 영역에 ()=> 씀
 	init : function(){
 		// 이벤트를 바인딩한다.
-		
 		// 1.리스너
 		$("#btn-save").on("click",()=>{
 			// 콜백 스택
 			this.save();
+		});
+		
+		$("#btn-delete").on("click",()=>{
+			this.deleteById();
 		});
 	},
 	
@@ -41,6 +44,26 @@ let index = {
 		// JSON.stringify(자바스크립트오브젝트);
 		// 제이슨 스트링 => 자바스크립트 오브젝트
 		// JSON.parse(제이슨스트링);
+	},
+	
+	deleteById : function() {
+		let data = {
+				id:$("#id").val()
+		};
+		// fetch쓰면 jquery안써도 됨
+		$.ajax({
+			//data를 날릴필요 없음.
+			type :"DELETE",
+			url: "/post/"+data.id,
+			dataType : "text"
+		}).done((resp)=>{
+			alert("글쓰기 삭제 성공");
+			location.href="/";
+			console.log(resp);
+		}).fail(function(error){
+			alert("글쓰기 삭제 실패");
+			console.log(error);
+		})
 	}
 }
 

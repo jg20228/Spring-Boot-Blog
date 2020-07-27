@@ -2,6 +2,7 @@ package com.cos.blog.repository;
 
 import java.util.List;
 
+import com.cos.blog.controller.dto.PostDetailRespDto;
 import com.cos.blog.model.Post;
 
 
@@ -10,4 +11,6 @@ public interface PostRepository {
 	//퍼시스턴스를 만들어줌
 	public void save(Post post);
 	public List<Post> findAll();
+	public PostDetailRespDto findById(int id);
+	public void deleteById(int id);
 }
