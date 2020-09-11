@@ -1,6 +1,7 @@
 package com.cos.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +29,16 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository; // DI
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Transactional
 	public int 회원가입(User user) {
+		String rawPassword = user.getPassword();
+		String password = bCryptPasswordEncoder.encode(rawPassword);
+		user.setPassword(password);
+		
+		
 		//원래는 Exception Handler를 사용해야한다.
 		//try catch를 잡아두면 fail이 아니라 done으로 간다.
 		//try catch 안하고 fail 발생시켜도 상관은 없지만 지금은 done으로 가는 방식을 사용.
@@ -46,7 +55,15 @@ public class UserService {
 	//readOnly = true가 필요한 이유
 	@Transactional(readOnly = true)
 	public User 로그인(User user) {
+		String encPassword = bCryptPasswordEncoder.encode(user.getPassword());
+		user.setPassword(encPassword);
 		User persistUser = userRepository.login(user);
-		return persistUser;
+		System.out.println(persistUser);
+		System.out.println("1 : "+encPassword);
+		System.out.println("2 : "+persistUser.getPassword());
+		if(encPassword == persistUser.getPassword()) {
+			return persistUser;
+		}
+		return null;
 	}
 }
